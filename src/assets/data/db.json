@@ -50,6 +50,8 @@
   ],
   "results":{
     "A": "Você muito provavelmente seria um super vilão!",
-    "B": "Você muito provavelmente seria um super Herói!"
+    "B": "Você muito provavelmente seria um super Herói!",
+    "C": "Você seria um anti-herói!",
+    "D": "Você seria neutro!"
   }
 }

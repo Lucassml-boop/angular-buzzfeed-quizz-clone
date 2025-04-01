@@ -8,6 +8,10 @@
   <div *ngIf=!finished class="quizz_questions">
       <h3>{{questionSelected.question}}</h3>
   </div>
+
+  <div *ngIf="!finished" class="timer">
+    <p>Tempo restante: {{timeLeft}} segundos</p>
+  </div>
   
   <div *ngIf="!finished" class="progress-bar">
     <div class="progress" [style.width.%]="(questionIndex / questionMaxIndex) * 100"></div>
@@ -23,17 +27,13 @@
   >
     {{option.name}}
   </button>
-
   </div>
 
-  <div *ngIf=finished class="quizz_results">
-    <h1>O Seu resultado é:</h1>
-    <p>{{answerSelected}}</p>
-  </div>
   <div *ngIf="finished" class="quizz_results">
     <h1>O Seu resultado é:</h1>
     <p>{{answerSelected}}</p>
     <button (click)="restartQuiz()" class="btn-restart">Reiniciar Quiz</button>
+    <button (click)="shareResult()" class="btn-share">Compartilhar Resultado</button>
   </div>
 
   <div *ngIf="loading" class="loader">

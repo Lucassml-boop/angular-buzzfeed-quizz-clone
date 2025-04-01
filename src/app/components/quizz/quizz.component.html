@@ -8,21 +8,36 @@
   <div *ngIf=!finished class="quizz_questions">
       <h3>{{questionSelected.question}}</h3>
   </div>
+  
+  <div *ngIf="!finished" class="progress-bar">
+    <div class="progress" [style.width.%]="(questionIndex / questionMaxIndex) * 100"></div>
+  </div>
 
   <div *ngIf=!finished class="quizz_options">
 
     <button
-      *ngFor="let option of questionSelected.options; let i = index"
-      (click)="playerChoose(option.alias)"
-      class="btn-option"
-    >
-      {{option.name}}
-    </button>
+    *ngFor="let option of questionSelected.options; let i = index"
+    (click)="playerChoose(option.alias)"
+    class="btn-option"
+    [attr.aria-label]="'Escolher ' + option.name"
+  >
+    {{option.name}}
+  </button>
 
   </div>
 
   <div *ngIf=finished class="quizz_results">
     <h1>O Seu resultado é:</h1>
     <p>{{answerSelected}}</p>
+  </div>
+  <div *ngIf="finished" class="quizz_results">
+    <h1>O Seu resultado é:</h1>
+    <p>{{answerSelected}}</p>
+    <button (click)="restartQuiz()" class="btn-restart">Reiniciar Quiz</button>
+  </div>
+
+  <div *ngIf="loading" class="loader">
+    <div class="spinner"></div>
+    <p>Carregando perguntas...</p>
   </div>
 </div>

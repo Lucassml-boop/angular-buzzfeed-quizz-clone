@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import quizz_questions from "../../../assets/data/quizz_questions.json"
+import { QuizService } from '../../services/quiz.service';
 
 @Component({
   selector: 'app-quizz',
@@ -8,71 +8,78 @@ import quizz_questions from "../../../assets/data/quizz_questions.json"
 })
 
 export class QuizzComponent implements OnInit {
+  title: string = '';
+  questions: any[] = [];
+  questionSelected: any;
 
-  title:string = ""
+  answers: string[] = [];
+  answerSelected: string = '';
 
-  questions:any
-  questionSelected:any
+  questionIndex: number = 0;
+  questionMaxIndex: number = 0;
 
-  answers:string[] = []
-  answerSelected:string =""
+  finished: boolean = false;
+  loading: boolean = true;
 
-  questionIndex:number =0
-  questionMaxIndex:number=0
-
-  finished:boolean = false
-
-  constructor() { }
+  constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
-    if(quizz_questions){
-      this.finished = false
-      this.title = quizz_questions.title
+    this.loading = true;
+    this.quizService.getQuestions().subscribe({
+      next: (data) => {
+        this.questions = data;
+        this.questionMaxIndex = this.questions.length;
+        this.questionSelected = this.questions[this.questionIndex];
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar perguntas:', err);
+        alert('Não foi possível carregar as perguntas. Tente novamente mais tarde.');
+        this.loading = false;
+      }
+    });
+  }
 
-      this.questions = quizz_questions.questions
-      this.questionSelected = this.questions[this.questionIndex]
-
-      this.questionIndex = 0
-      this.questionMaxIndex = this.questions.length
-
-      console.log(this.questionIndex)
-      console.log(this.questionMaxIndex)
+  playerChoose(value: string) {
+    if (!value) {
+      alert('Por favor, selecione uma resposta.');
+      return;
     }
-
+    this.answers.push(value);
+    this.nextStep();
   }
 
-  playerChoose(value:string){
-    this.answers.push(value)
-    this.nextStep()
-
+  restartQuiz() {
+    this.finished = false;
+    this.answers = [];
+    this.questionIndex = 0;
+    this.questionSelected = this.questions[this.questionIndex];
   }
 
-  async nextStep(){
-    this.questionIndex+=1
+  async nextStep() {
+    this.questionIndex += 1;
 
-    if(this.questionMaxIndex > this.questionIndex){
-        this.questionSelected = this.questions[this.questionIndex]
-    }else{
-      const finalAnswer:string = await this.checkResult(this.answers)
-      this.finished = true
-      this.answerSelected = quizz_questions.results[finalAnswer as keyof typeof quizz_questions.results ]
+    if (this.questionMaxIndex > this.questionIndex) {
+      this.questionSelected = this.questions[this.questionIndex];
+    } else {
+      const finalAnswer: string = await this.checkResult(this.answers);
+      this.finished = true;
+      this.answerSelected = finalAnswer === 'A' ? 'Você seria um vilão!' : 'Você seria um herói!';
     }
   }
 
-  async checkResult(anwsers:string[]){
+  async checkResult(answers: string[]) {
+    const result = answers.reduce((prev, curr, i, arr) => {
+      if (
+        arr.filter((item) => item === prev).length >
+        arr.filter((item) => item === curr).length
+      ) {
+        return prev;
+      } else {
+        return curr;
+      }
+    });
 
-    const result = anwsers.reduce((previous, current, i, arr)=>{
-        if(
-          arr.filter(item => item === previous).length >
-          arr.filter(item => item === current).length
-        ){
-          return previous
-        }else{
-          return current
-        }
-    })
-
-    return result
+    return result;
   }
-
 }

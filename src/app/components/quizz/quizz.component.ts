@@ -10,7 +10,7 @@ import { QuizService } from '../../services/quiz.service';
 export class QuizzComponent implements OnInit {
   title: string = '';
   questions: any[] = [];
-  questionSelected: any;
+  questionSelected: any = { question: '', options: [] };
 
   answers: string[] = [];
   answerSelected: string = '';
@@ -24,41 +24,31 @@ export class QuizzComponent implements OnInit {
   timeLeft: number = 10;
   interval: any;
 
+  selectedAnswer: string | null = null;
+
   constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
-    this.loading = true;
-
+    this.loading = true; 
+  
     this.quizService.getQuestions().subscribe({
       next: (data) => {
         this.questions = this.shuffleArray(data); 
         this.questionMaxIndex = this.questions.length;
-
-        const savedProgress = localStorage.getItem('quizProgress');
-        if (savedProgress) {
-          const progress = JSON.parse(savedProgress);
-          this.questionIndex = progress.questionIndex;
-          this.answers = progress.answers;
-          this.finished = progress.finished;
-
-          if (this.finished) {
-            const finalAnswer: string = this.checkResult(this.answers);
-            this.answerSelected = this.getResultMessage(finalAnswer);
-          } else {
-            this.questionSelected = this.questions[this.questionIndex];
-            this.startTimer();
-          }
-        } else {
-          this.questionSelected = this.questions[this.questionIndex];
-          this.startTimer();
-        }
-
-        this.loading = false;
+  
+        
+        this.finished = false; 
+        this.questionIndex = 0; 
+        this.answers = []; 
+        this.questionSelected = this.questions[this.questionIndex];
+        this.startTimer();
+  
+        this.loading = false; 
       },
       error: (err) => {
         console.error('Erro ao carregar perguntas:', err);
         alert('Não foi possível carregar as perguntas. Tente novamente mais tarde.');
-        this.loading = false;
+        this.loading = false; 
       }
     });
   }
@@ -91,6 +81,7 @@ export class QuizzComponent implements OnInit {
       alert('Por favor, selecione uma resposta.');
       return;
     }
+    this.selectedAnswer = value;
     this.answers.push(value);
     this.nextStep();
   }
@@ -114,25 +105,29 @@ export class QuizzComponent implements OnInit {
 
   async nextStep() {
     this.stopTimer();
+    this.selectedAnswer = null;
     this.questionIndex += 1;
-
+  
     localStorage.setItem('quizProgress', JSON.stringify({
       questionIndex: this.questionIndex,
       answers: this.answers,
       finished: this.finished
     }));
-
+  
     if (this.questionMaxIndex > this.questionIndex) {
       this.questionSelected = this.questions[this.questionIndex];
       this.startTimer();
     } else {
-      const finalAnswer: string = this.checkResult(this.answers);
-      this.finished = true;
+      this.finished = true; 
+      const finalAnswer: string = this.answers.length > 0 ? this.checkResult(this.answers) : '';
       this.answerSelected = this.getResultMessage(finalAnswer);
     }
   }
 
   checkResult(answers: string[]): string {
+    if (answers.length === 0) {
+      return ''; 
+    }
     const result = answers.reduce((prev, curr, i, arr) => {
       if (
         arr.filter((item) => item === prev).length >

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-quizz',
   templateUrl: './quizz.component.html',
@@ -8,7 +8,7 @@ import { QuizService } from '../../services/quiz.service';
 })
 
 export class QuizzComponent implements OnInit {
-  title: string = '';
+  title: string = 'BuzzFeed Quiz';
   questions: any[] = [];
   questionSelected: any = { question: '', options: [] };
 
@@ -26,7 +26,11 @@ export class QuizzComponent implements OnInit {
 
   selectedAnswer: string | null = null;
 
-  constructor(private quizService: QuizService) {}
+  constructor(private quizService: QuizService, private router: Router) {}
+
+  goToHome(): void {
+    this.router.navigate(['/home']);
+  }
 
   ngOnInit(): void {
     this.loading = true; 

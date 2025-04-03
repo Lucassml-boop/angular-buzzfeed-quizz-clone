@@ -1,7 +1,10 @@
 <div class="quizz__container">
 
-  <mat-toolbar color="primary">
-    <span>{{ title }}</span>
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="goToHome()">
+      <mat-icon aria-hidden="false" aria-label="home" fontIcon="home">home</mat-icon>
+    </button>
+    <span class="toolbar-title">{{ title }}</span>
   </mat-toolbar>
 
   <div *ngIf="loading" class="loader">
@@ -18,10 +21,11 @@
   </div>
   
   <mat-progress-bar
-    *ngIf="!loading && !finished && questionSelected"
-    mode="determinate"
-    [value]="(questionIndex / questionMaxIndex) * 100">
-  </mat-progress-bar>
+  class="progress-bar"
+  *ngIf="!loading && !finished && questionSelected"
+  mode="determinate"
+  [value]="(questionIndex / questionMaxIndex) * 100">
+</mat-progress-bar>
 
   <div *ngIf="!loading && !finished && questionSelected" class="quizz_options">
     <button

@@ -61,7 +61,7 @@ json-server --watch db.json --port 3000
 A API estará disponível em: http://localhost:3000
 
 # Estrutura do Projeto
-
+```
 src/
 ├── app/
 │   ├── components/
@@ -75,6 +75,7 @@ src/
 ├── environments/           # Configurações de ambiente
 ├── index.html              # Arquivo HTML principal
 └── styles.css              # Estilos globais
+```
 
 ## Endpoints da API Local
 ### Quizzes: GET http://localhost:3000/quizzes

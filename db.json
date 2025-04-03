@@ -1,58 +1,117 @@
 {
-  "title":"Você seria um heroi ou vilão ?",
-  "questions":[
+  "quizzes": [
     {
-      "id":1,
-      "question": "Qual super poder você escolheria ?",
-      "options":[
-        {"id": 1, "name":"Raios-Lasers", "alias":"A"},
-        {"id": 2, "name":"Voar", "alias":"B"},
-        {"id": 3, "name":"Explodir coisas", "alias":"A"},
-        {"id": 4, "name":"Curar feridas", "alias":"B"},
-        {"id": 5, "name":"Soltar fogo pelas mãos", "alias":"A"}
+      "id": 1,
+      "title": "Você seria um herói ou vilão?",
+      "description": "Descubra se você seria um super-herói ou um supervilão!"
+    }
+  ],
+  "questions": [
+    {
+      "quizId": 1,
+      "id": 1,
+      "question": "Qual super poder você escolheria?",
+      "options": [
+        { "id": 1, "name": "Raios-Lasers", "alias": "A" },
+        { "id": 2, "name": "Voar", "alias": "B" },
+        { "id": 3, "name": "Explodir coisas", "alias": "A" },
+        { "id": 4, "name": "Curar feridas", "alias": "B" },
+        { "id": 5, "name": "Soltar fogo pelas mãos", "alias": "A" }
       ]
     },
     {
-      "id":2,
-      "question": "Quem você salvaria primeiro ?",
-      "options":[
-        {"id": 1, "name":"Crianças", "alias":"A"},
-        {"id": 2, "name":"Idosos", "alias":"A"},
-        {"id": 3, "name":"Não saberia escolher", "alias":"B"}
+      "quizId": 1,
+      "id": 2,
+      "question": "Quem você salvaria primeiro?",
+      "options": [
+        { "id": 1, "name": "Crianças", "alias": "A" },
+        { "id": 2, "name": "Idosos", "alias": "A" },
+        { "id": 3, "name": "Não saberia escolher", "alias": "B" }
       ]
     },
     {
-      "id":3,
-      "question": "Qual a sua maior preocupação ao enfretar outro super ser ?",
-      "options":[
-        {"id": 1, "name":"Não destruir prédios", "alias":"B"},
-        {"id": 2, "name":"Socar a cara do inimigo", "alias":"A"},
-        {"id": 3, "name":"Não sujar meu traje", "alias":"A"},
-        {"id": 4, "name":"Não deixar ninguém se ferir", "alias":"B"}
+      "quizId": 1,
+      "id": 3,
+      "question": "Qual a sua maior preocupação ao enfrentar outro super ser?",
+      "options": [
+        { "id": 1, "name": "Não destruir prédios", "alias": "B" },
+        { "id": 2, "name": "Socar a cara do inimigo", "alias": "A" },
+        { "id": 3, "name": "Não sujar meu traje", "alias": "A" },
+        { "id": 4, "name": "Não deixar ninguém se ferir", "alias": "B" }
       ]
     },
     {
-      "id":4,
-      "question": "Qual o seu maior foco ?",
-      "options":[
-        {"id": 1, "name":"Ficar rico com poderes", "alias":"A"},
-        {"id": 2, "name":"Salvar a cidade", "alias":"B"}
+      "quizId": 1,
+      "id": 4,
+      "question": "Qual o seu maior foco?",
+      "options": [
+        { "id": 1, "name": "Ficar rico com poderes", "alias": "A" },
+        { "id": 2, "name": "Salvar a cidade", "alias": "B" }
       ]
     },
     {
-      "id":5,
-      "question": "Qual o seu apelido de super ser ?",
-      "options":[
-        {"id": 1, "name":"O Terrivel", "alias":"A"},
-        {"id": 2, "name":"Amigo da vizinhança", "alias":"B"}
+      "quizId": 1,
+      "id": 5,
+      "question": "Qual o seu apelido de super ser?",
+      "options": [
+        { "id": 1, "name": "O Terrível", "alias": "A" },
+        { "id": 2, "name": "Amigo da vizinhança", "alias": "B" }
+      ]
+    },
+    {
+      "quizId": 1,
+      "id": 6,
+      "question": "O que você faria se ganhasse superpoderes de repente?",
+      "options": [
+        { "id": 1, "name": "Testaria em um banco para ver se funciona", "alias": "A" },
+        { "id": 2, "name": "Ajudaria quem precisasse", "alias": "B" },
+        { "id": 3, "name": "Esconderia e só usaria em emergências", "alias": "B" }
+      ]
+    },
+    {
+      "quizId": 1,
+      "id": 7,
+      "question": "Qual dessas frases mais combina com você?",
+      "options": [
+        { "id": 1, "name": "\"O mundo precisa de ordem, custe o que custar.\"", "alias": "A" },
+        { "id": 2, "name": "\"Com grandes poderes vêm grandes responsabilidades.\"", "alias": "B" },
+        { "id": 3, "name": "\"Eu faço o que for necessário para sobreviver.\"", "alias": "C" }
+      ]
+    },
+    {
+      "quizId": 1,
+      "id": 8,
+      "question": "Seu maior inimigo está derrotado e indefeso. O que você faz?",
+      "options": [
+        { "id": 1, "name": "Acabo com ele de uma vez!", "alias": "A" },
+        { "id": 2, "name": "Prendo ele para pagar pelos crimes.", "alias": "B" },
+        { "id": 3, "name": "Apenas vou embora, já fiz minha parte.", "alias": "C" }
+      ]
+    },
+    {
+      "quizId": 1,
+      "id": 9,
+      "question": "Se você tivesse que escolher um aliado, quem seria?",
+      "options": [
+        { "id": 1, "name": "Um gênio do crime", "alias": "A" },
+        { "id": 2, "name": "Um policial honesto", "alias": "B" },
+        { "id": 3, "name": "Ninguém, prefiro trabalhar sozinho", "alias": "C" }
+      ]
+    },
+    {
+      "quizId": 1,
+      "id": 10,
+      "question": "O que mais te motiva a agir?",
+      "options": [
+        { "id": 1, "name": "O desejo de ser temido e respeitado", "alias": "A" },
+        { "id": 2, "name": "A vontade de proteger os inocentes", "alias": "B" },
+        { "id": 3, "name": "Buscar justiça do meu próprio jeito", "alias": "C" }
       ]
     }
   ],
-  "results":{
+  "results": {
     "A": "Você muito provavelmente seria um super vilão!",
-    "B": "Você muito provavelmente seria um super Herói!",
-    "B": "Você muito provavelmente seria um super Herói!",
-    "C": "Você seria um anti-herói!",
-    "D": "Você seria neutro!"
+    "B": "Você muito provavelmente seria um super herói!",
+    "C": "Você seria um anti-herói!"
   }
 }

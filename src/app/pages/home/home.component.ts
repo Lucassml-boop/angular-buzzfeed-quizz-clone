@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,10 +6,20 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  quizzes = [
+    {
+      id: 1,
+      title: 'Você seria um herói ou vilão?',
+      description: 'Descubra se você seria um super-herói ou um supervilão!'
+    }
+  ];
+
   constructor(private router: Router) {}
 
-  startQuiz(): void {
-    this.router.navigate(['/quiz']); 
+  ngOnInit(): void {}
+
+  startQuiz(quizId: number): void {
+    this.router.navigate(['/quiz'], { queryParams: { id: quizId } });
   }
 }

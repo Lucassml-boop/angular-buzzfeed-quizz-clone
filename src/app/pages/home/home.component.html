@@ -1,7 +1,25 @@
 <div class="home__container">
+  <mat-toolbar color="primary" class="toolbar">
+    <span class="home-icon">BuzzFeed</span>
+  </mat-toolbar>
+
   <div class="home__content">
-    <h1>Bem-vindo ao Quiz!</h1>
-    <p>Teste seus conhecimentos e divirta-se com este quiz interativo.</p>
-    <button mat-raised-button color="primary" (click)="startQuiz()">Iniciar Quiz</button>
+    <h1>Escolha um Quiz</h1>
+    <div class="quiz-list">
+      <div class="quiz-card" *ngFor="let quiz of quizzes" (click)="startQuiz(quiz.id)">
+        <div class="quiz-card-header">
+          {{ quiz.title }}
+        </div>
+        <div class="quiz-card-image">
+          <img  class="quiz-card-image" src="assets/imgs/hv.png" alt="{{ quiz.title }}" />
+        </div>
+        <div class="quiz-card-content">
+          <p class="card-description">{{ quiz.description }}</p>
+        </div>
+        <div class="quiz-card-footer">
+          <button>Começar Quiz</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

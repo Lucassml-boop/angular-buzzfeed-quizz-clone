@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-quizz',
   templateUrl: './quizz.component.html',
   styleUrls: ['./quizz.component.css']
 })
+
 
 export class QuizzComponent implements OnInit {
   title: string = 'BuzzFeed Quiz';
@@ -26,33 +29,48 @@ export class QuizzComponent implements OnInit {
 
   selectedAnswer: string | null = null;
 
-  constructor(private quizService: QuizService, private router: Router) {}
+  constructor(
+    private quizService: QuizService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   goToHome(): void {
     this.router.navigate(['/home']);
   }
 
   ngOnInit(): void {
-    this.loading = true; 
-  
-    this.quizService.getQuestions().subscribe({
+    this.loading = true;
+
+    this.route.queryParams.subscribe((params) => {
+      const quizId = params['id'];
+      if (quizId) {
+        this.loadQuiz(quizId); 
+      } else {
+        alert('ID do quiz não encontrado!');
+        this.router.navigate(['/home']); 
+      }
+    });
+  }
+
+  loadQuiz(quizId: number): void {
+    this.quizService.getQuestionsByQuizId(quizId).subscribe({
       next: (data) => {
-        this.questions = this.shuffleArray(data); 
+        this.questions = this.shuffleArray(data);
         this.questionMaxIndex = this.questions.length;
-  
-        
-        this.finished = false; 
-        this.questionIndex = 0; 
-        this.answers = []; 
+
+        this.finished = false;
+        this.questionIndex = 0;
+        this.answers = [];
         this.questionSelected = this.questions[this.questionIndex];
         this.startTimer();
-  
-        this.loading = false; 
+
+        this.loading = false;
       },
       error: (err) => {
         console.error('Erro ao carregar perguntas:', err);
         alert('Não foi possível carregar as perguntas. Tente novamente mais tarde.');
-        this.loading = false; 
+        this.loading = false;
       }
     });
   }
@@ -66,14 +84,14 @@ export class QuizzComponent implements OnInit {
   }
 
   startTimer(): void {
-    this.timeLeft = 10; 
+    this.timeLeft = 10;
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        this.nextStep(); 
+        this.nextStep();
       }
-    }, 1000); 
+    }, 1000);
   }
 
   stopTimer(): void {
@@ -111,18 +129,18 @@ export class QuizzComponent implements OnInit {
     this.stopTimer();
     this.selectedAnswer = null;
     this.questionIndex += 1;
-  
+
     localStorage.setItem('quizProgress', JSON.stringify({
       questionIndex: this.questionIndex,
       answers: this.answers,
       finished: this.finished
     }));
-  
+
     if (this.questionMaxIndex > this.questionIndex) {
       this.questionSelected = this.questions[this.questionIndex];
       this.startTimer();
     } else {
-      this.finished = true; 
+      this.finished = true;
       const finalAnswer: string = this.answers.length > 0 ? this.checkResult(this.answers) : '';
       this.answerSelected = this.getResultMessage(finalAnswer);
     }
@@ -130,7 +148,7 @@ export class QuizzComponent implements OnInit {
 
   checkResult(answers: string[]): string {
     if (answers.length === 0) {
-      return ''; 
+      return '';
     }
     const result = answers.reduce((prev, curr, i, arr) => {
       if (

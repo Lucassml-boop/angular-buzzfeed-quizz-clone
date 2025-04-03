@@ -6,11 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class QuizService {
-  private apiUrl = 'http://localhost:3000/questions';
+  private baseUrl = 'http://localhost:3000'; 
 
   constructor(private http: HttpClient) {}
 
-  getQuestions(): Observable<any> {
-    return this.http.get(this.apiUrl);
+  getQuizzes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/quizzes`);
+  }
+
+  getQuestionsByQuizId(quizId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/questions?quizId=${quizId}`);
+  }
+  
+  getResults(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/results`);
   }
 }

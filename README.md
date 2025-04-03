@@ -1,4 +1,4 @@
-# Angular BuzzFeed Quiz Clone
+# 🧩 Angular BuzzFeed Quiz Clone
 
 Este é um projeto de clone do BuzzFeed Quiz desenvolvido com Angular. Ele permite que os usuários respondam a quizzes e obtenham resultados baseados em suas respostas. O projeto utiliza uma API local para gerenciar os dados dos quizzes, perguntas e resultados.
 
